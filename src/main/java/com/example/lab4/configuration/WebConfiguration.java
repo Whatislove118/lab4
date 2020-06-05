@@ -1,11 +1,16 @@
 package com.example.lab4.configuration;
 
+import com.example.lab4.UserDetailsServ;
+import com.example.lab4.beanpostprocessors.InitMBeanBeanPostProcessor;
+import com.example.lab4.entity.Point;
+import com.example.lab4.profilingandmonitoring.MBean;
 import com.example.lab4.tools.CheckArea;
 import com.example.lab4.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,23 +33,15 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter implements We
     @Qualifier("userDetailsServ")
     private UserDetailsService userDetailsService;
 
-//    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
-//            "classpath:/META-INF/resources/", "classpath:/resources/",
-//            "classpath:/static/", "classpath:/public/" };
-//
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry
-//                .addResourceHandler("/resources/**")
-//                .addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-//    }
-
-
+    @Bean(name = "mBean")
+    @Scope(scopeName = "prototype")
+    public MBean getMBean(){ return new MBean();}
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder(8);
     }
+
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();

@@ -3,9 +3,12 @@ package com.example.lab4.controllers;
 import com.example.lab4.UserDetailsServ;
 import com.example.lab4.configuration.WebConfiguration;
 import com.example.lab4.entity.User;
+import com.example.lab4.profilingandmonitoring.MBean;
 import com.example.lab4.service.UserService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +30,8 @@ import java.security.Principal;
 public class UserController {
 
     @Autowired
-    private WebConfiguration webConfiguration;
+    private ApplicationContext applicationContext;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private UserDetailsServ userDetailsServ;
 
     @Autowired
     private UserService userService;
@@ -44,8 +43,9 @@ public class UserController {
             System.out.println("This login in use");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
-            System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             System.out.println(user + " registered");
+            MBean mBean = (MBean) applicationContext.getBean("mBean");
+            user.setmBean(mBean);
             return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
         }
     }
@@ -56,21 +56,16 @@ public class UserController {
         try {
             if (userService.getMatches(user, userService.findByLogin(user.getLogin()).getPassword())) {
                 System.out.println("user is login");
+                System.out.println("mbean count");
                 return new ResponseEntity<>(userService.findByLogin(user.getLogin()), HttpStatus.ACCEPTED);
             } else {
                 System.out.println("user is no login");
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
         } catch (NullPointerException e) {
-            System.out.println("user is no login and hi know it");
+            System.out.println("user is no login and he know it");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-//    @CrossOrigin
-//    @RequestMapping(value = "/login")
-//    public Principal user(Principal principal) {
-//        System.out.println(principal.getName() + " signed in");
-//        return principal;
-//    }
     }
 }

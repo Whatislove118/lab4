@@ -1,8 +1,6 @@
 package com.example.lab4.entity;
 
 public class SimplePoint {
-
-
         private double x;
         private double y;
         private double r;
