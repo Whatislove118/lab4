@@ -9,5 +9,6 @@ import java.util.Collection;
 
 public interface PointRepository extends CrudRepository<Point,Long> {
     Collection<Point> findByUser(User user);
-    Collection<Point> findByUserAndIsAreaTrue(User user);
+    Collection<Point> findByIsAreaTrue();
+    Collection<Point> findAll();
 }

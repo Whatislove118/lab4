@@ -1,8 +1,5 @@
 package com.example.lab4.entity;
 
-import com.example.lab4.profilingandmonitoring.MBean;
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +10,6 @@ public class User {
     private Long id;
     private String login;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
-    private MBean mBean;
 
 
     public User(){}
@@ -24,13 +19,6 @@ public class User {
         this.password = password;
     }
 
-    public MBean getmBean() {
-        return mBean;
-    }
-
-    public void setmBean(MBean mBean) {
-        this.mBean = mBean;
-    }
 
     public Long getId() {
         return id;

@@ -76,6 +76,7 @@ public class Point {
         this.isArea = isInArea;
     }
 
+
     public SimplePoint convertToSimplePoint(){
         return new SimplePoint(X,Y,R,isArea);
     }

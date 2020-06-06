@@ -1,37 +1,16 @@
 package com.example.lab4.controllers;
 
-import com.example.lab4.UserDetailsServ;
-import com.example.lab4.configuration.WebConfiguration;
 import com.example.lab4.entity.User;
-import com.example.lab4.profilingandmonitoring.MBean;
 import com.example.lab4.service.UserService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionInformation;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 
 @RestController
 public class UserController {
-
-    @Autowired
-    private ApplicationContext applicationContext;
-
 
     @Autowired
     private UserService userService;
@@ -44,8 +23,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         } else {
             System.out.println(user + " registered");
-            MBean mBean = (MBean) applicationContext.getBean("mBean");
-            user.setmBean(mBean);
             return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
         }
     }

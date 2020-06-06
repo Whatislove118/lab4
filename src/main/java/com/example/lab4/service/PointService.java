@@ -19,6 +19,18 @@ public class PointService {
         return pointRepository.save(point);
     }
 
+    public int findAllPoints(){
+        return pointRepository.findAll().size();
+    }
+
+    public int findByIsAreaTrue(){
+        return pointRepository.findByIsAreaTrue().size();
+    }
+
+    public double getHitPercents(){
+        return (pointRepository.findByIsAreaTrue().size()*1.0 / pointRepository.findAll().size()*1.0) * 100;
+    }
+
 
 
 

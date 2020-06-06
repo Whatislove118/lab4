@@ -22,4 +22,15 @@ public class CheckArea {
        return false;
     }
 
+    public static boolean isValidateArea(Point point){
+        double x = point.getX();
+        double y = point.getY();
+        double maxR = 5.2;
+        if(x < -maxR || x > maxR ||
+                y > maxR || y < -maxR){
+            return false;
+        }
+        return true;
+    }
+
 }
