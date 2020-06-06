@@ -8,15 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class MBeanService {
 
-    @Autowired
-    private PointService pointService;
-
     public void initCounterPoints(CounterPoints counterPoints){
-        counterPoints.setAllPoints(pointService.findAllPoints());
-        counterPoints.setHitPoints(pointService.findByIsAreaTrue());
+        counterPoints.countAllPoints();
+        counterPoints.countHitPoints();
     }
 
     public void initCounterPercent(CounterPercent counterPercent){
-        counterPercent.setPercent(pointService.getHitPercents());
+        counterPercent.countPercent();
     }
 }

@@ -1,18 +1,23 @@
 package com.example.lab4.profilingandmonitoring;
 
 import com.example.lab4.annotations.InitMBean;
+import com.example.lab4.service.PointService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @InitMBean
 public class CounterPercent implements CounterPercentMBean {
-    double percent;
+    private double percent;
+
+    @Autowired
+    private PointService pointService;
 
     public double getPercent() {
         return percent;
     }
 
-    public void setPercent(double percent) {
-        this.percent = percent;
-    }
+   public void countPercent(){
+       percent =  pointService.getHitPercents();
+   }
 
     @Override
     public String toString() {
