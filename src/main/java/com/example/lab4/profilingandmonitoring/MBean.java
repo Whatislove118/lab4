@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @InitMBean
 @Entity
-public class MBean {
+public class MBean implements MispMBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -63,6 +63,9 @@ public class MBean {
 
     public void setPercent(double percent) {
         this.percent = percent;
+    }
+    public double countPercent(){
+        return ( this.getHitPoints()*1.0 / this.getAllPoints()*1.0) * 100;
     }
 
     @Override

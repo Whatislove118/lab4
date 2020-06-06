@@ -60,7 +60,7 @@ public class PointController {
         MBean mBean = user.getmBean();
         mBean.setAllPoints(pointRepository.findByUser(user).size());
         mBean.setHitPoints(pointRepository.findByUserAndIsAreaTrue(user).size());
-        mBean.setPercent(( mBean.getHitPoints()*1.0 / mBean.getAllPoints()*1.0) * 100);
+        mBean.setPercent(mBean.countPercent());
         System.out.println(mBean);
         return collection;
     }
